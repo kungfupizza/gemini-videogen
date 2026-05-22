@@ -210,6 +210,52 @@ gemini-videogen series STORYLINE --show DIR [--dry-run] [--skip-video]
 
 ---
 
+## Claude MCP server
+
+`gemini-videogen` ships an [MCP](https://modelcontextprotocol.io) server so Claude can orchestrate
+Veo3 video generation directly from a conversation — no CLI needed.
+
+### Install
+
+```bash
+uv sync --extra mcp
+```
+
+### Register with Claude Desktop
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "gemini-videogen": {
+      "command": "gemini-videogen-mcp",
+      "env": {
+        "GOOGLE_API_KEY": "your_key_here"
+      }
+    }
+  }
+}
+```
+
+### Available tools
+
+| Tool | Description |
+|------|-------------|
+| `init_show` | Generate a show config (lore + characters) from a one-line idea |
+| `run_episode` | Generate a single episode video |
+| `generate_series` | Generate a full multi-episode series |
+| `list_outputs` | List generated videos and file sizes |
+| `show_episode_story` | Read the story plan for a generated episode |
+
+### Example conversation
+
+> **You:** Create a new show about a young marine biologist and her submarine robot exploring the ocean. Then make a pilot episode.
+>
+> **Claude:** *(calls `init_show`, then `run_episode` with `dry_run=True` to preview, then generates the video)*
+
+---
+
 ## Kokoro TTS (brand intros)
 
 Brand intros use [Kokoro](https://github.com/hexgrad/kokoro) for narration. It's optional:

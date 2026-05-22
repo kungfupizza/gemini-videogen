@@ -27,10 +27,12 @@ dependencies = [
 
 [project.optional-dependencies]
 tts = ["kokoro", "numpy"]
+mcp = ["mcp[cli]"]
 dev = ["pytest", "ruff"]
 
 [project.scripts]
-gemini-videogen = "gemini_videogen.cli:main"
+gemini-videogen     = "gemini_videogen.cli:main"
+gemini-videogen-mcp = "gemini_videogen.mcp_server:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
